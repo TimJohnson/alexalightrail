@@ -1,0 +1,7 @@
+{
+  "name": "charlotteLightRail",
+  "description": "App for the charlotte light rail",
+  "memory": 128,
+  "timeout": 5,
+  "role": ""
+}

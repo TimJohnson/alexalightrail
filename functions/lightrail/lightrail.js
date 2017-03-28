@@ -1,6 +1,6 @@
 import alexa from 'alexa-app';
 
-const app = new alexa.app(`Charlotte Light Rail`);
+const app = new alexa.app(`charlotteLightRail`);
 
 app.launch((req, res) => {
   res.say(`You've launched charlotte light rail for alexa`);
