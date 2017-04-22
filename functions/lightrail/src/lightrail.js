@@ -17,9 +17,8 @@ app.intent('GetTimeIntent', {
 
     //hard coded for outbound from carson station
     let nextTime = getNextTrainTime('outbound', 10, moment(req.data.request.timestamp).tz('America/New_York').format());
-    console.log('next time: ', nextTime);
-
-    res.say(`The next outbound train is leaving carson station at ${nextTime.time}`);
+    
+    res.say(`The next outbound train is leaving in ${nextTime.delta} at ${nextTime.time}`);
   }
 );
 
@@ -28,10 +27,6 @@ let getNextTrainTime = (direction, stationIndex, timestamp) => {
 
   let day = moment(timestamp).tz('America/New_York').day()
   let time = moment(timestamp).tz('America/New_York').format('HH:mm')
-
-  console.log('day: ', day);
-  console.log('time:', time);
-  console.log('request: ', timestamp);
 
   const getTime = (firstOrLast, dayOfWeek) => {
     let getTime = targetStation[`${direction}${dayOfWeek}`]
