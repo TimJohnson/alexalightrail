@@ -34,3 +34,6 @@ Busy, rushed, Charlotte city-living, person
 - Next train in  0 -  5 min: Hurry!
 - Next train in  6 - 15 min: Go now.
 - Next train in  15 +   min: Plenty of time...
+
+### Voice User Interface
+- [proposed VUI and phase flow image](https://github.com/josephjguerra/alexalightrail/blob/master/alexalightrail.png)
