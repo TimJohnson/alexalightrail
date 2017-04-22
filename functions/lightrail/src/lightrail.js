@@ -1,5 +1,5 @@
 import alexa from 'alexa-app';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { blueStops } from './helper.js'
 
 const app = new alexa.app(`charlotteLightRail`);
@@ -16,18 +16,22 @@ app.intent('GetTimeIntent', {
   (req, res) => {
 
     //hard coded for outbound from carson station
-    let nextTime = getNextTrainTime('outbound', 11);
+    let nextTime = getNextTrainTime('outbound', 10, moment(req.data.request.timestamp).tz('America/New_York').format());
     console.log('next time: ', nextTime);
 
     res.say(`The next outbound train is leaving carson station at ${nextTime.time}`);
   }
 );
 
-let getNextTrainTime = (direction, stationIndex) => {
+let getNextTrainTime = (direction, stationIndex, timestamp) => {
   const targetStation = blueStops[stationIndex]
 
-  let day = moment().day()
-  let time = moment().format('HH:mm')
+  let day = moment(timestamp).tz('America/New_York').day()
+  let time = moment(timestamp).tz('America/New_York').format('HH:mm')
+
+  console.log('day: ', day);
+  console.log('time:', time);
+  console.log('request: ', timestamp);
 
   const getTime = (firstOrLast, dayOfWeek) => {
     let getTime = targetStation[`${direction}${dayOfWeek}`]
@@ -61,7 +65,7 @@ let getNextTrainTime = (direction, stationIndex) => {
     .find(time => time.isAfter(moment()))
 
   // If there's no scheduled time after the current time, then default to the first time
-  const nextTrainTime = nextTrain ? nextTrain.format('LT') : firstTrain.format('LT')
+  const nextTrainTime = nextTrain ? nextTrain.tz('America/New_York').format('LT') : firstTrain.tz('America/New_York').format('LT')
   const nextTrainDelta = nextTrain ? nextTrain.fromNow() : firstTrain.add(1, 'days').fromNow()
   return { time: nextTrainTime, delta: nextTrainDelta }
 }
