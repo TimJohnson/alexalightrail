@@ -8,17 +8,39 @@ app.launch((req, res) => {
   res.say(`You've launched charlotte light rail for alexa`);
 });
 
-app.intent('GetTimeIntent', {
+app.intent('GetOutboundIntent', {
     'utterances': [
-      'when is the train leaving'
+      'when is the train leaving',
+      'what time does the train leave',
+      'When is the next outbound train',
+      'outbound',
+      'next outbound'
     ]
   },
   (req, res) => {
 
     //hard coded for outbound from carson station
     let nextTime = getNextTrainTime('outbound', 10, moment(req.data.request.timestamp).tz('America/New_York').format());
-    
+
     res.say(`The next outbound train is leaving in ${nextTime.delta} at ${nextTime.time}`);
+  }
+);
+
+app.intent('GetInboundIntent', {
+    'utterances': [
+      'When is the next inbound train',
+      'inbound',
+      'next inbound',
+      'when does the inbound train leave',
+      'where is the inbound train'
+    ]
+  },
+  (req, res) => {
+
+    //hard coded for outbound from carson station
+    let nextTime = getNextTrainTime('inbound', 10, moment(req.data.request.timestamp).tz('America/New_York').format());
+
+    res.say(`The next inbound train is leaving in ${nextTime.delta} at ${nextTime.time}`);
   }
 );
 
