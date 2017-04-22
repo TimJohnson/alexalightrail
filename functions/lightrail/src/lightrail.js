@@ -22,7 +22,7 @@ app.intent('GetOutboundIntent', {
     //hard coded for outbound from carson station
     let nextTime = getNextTrainTime('outbound', 10, moment(req.data.request.timestamp).tz('America/New_York').format());
 
-    res.say(`The next outbound train is leaving in ${nextTime.delta} at ${nextTime.time}`);
+    res.say(`The next outbound train is leaving ${nextTime.delta} at ${nextTime.time}`);
   }
 );
 
@@ -40,7 +40,7 @@ app.intent('GetInboundIntent', {
     //hard coded for outbound from carson station
     let nextTime = getNextTrainTime('inbound', 10, moment(req.data.request.timestamp).tz('America/New_York').format());
 
-    res.say(`The next inbound train is leaving in ${nextTime.delta} at ${nextTime.time}`);
+    res.say(`The next inbound train is leaving ${nextTime.delta} at ${nextTime.time}`);
   }
 );
 
